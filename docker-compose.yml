@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: klikmedis
       MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - klikmedis_db_data:/var/lib/mysql
     networks:
