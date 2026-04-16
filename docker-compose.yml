@@ -14,20 +14,6 @@ services:
     networks:
       - h360-network
 
-  # 1. Database HEARTS360 (Dashboard)
-  h360-db:
-    image: postgres:15-alpine
-    container_name: h360-db
-    restart: always
-    environment:
-      POSTGRES_DB: hearts360
-      POSTGRES_USER: h360user
-      POSTGRES_PASSWORD: h360password
-    volumes:
-      - h360_db_data:/var/lib/postgresql/data
-    networks:
-      - h360-network
-
   # 2. Dashboard Grafana
   h360-dashboard:
     image: grafana/grafana-oss:latest
@@ -39,7 +25,7 @@ services:
       - GF_SECURITY_ALLOW_EMBEDDING=true
       - GF_AUTH_ANONYMOUS_ENABLED=true
     depends_on:
-      - h360-db
+      - klikmedis-db
     networks:
       - h360-network
 
@@ -71,7 +57,6 @@ services:
       - h360-network
 
 volumes:
-  h360_db_data:
   klikmedis_db_data:
 
 networks:

@@ -10,8 +10,12 @@ use App\Http\Controllers\LanguageController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [Hearts360Controller::class, 'hipertensi'])->name('hearts360.hipertensi');
-Route::get('hearts360/hipertensi', [Hearts360Controller::class, 'hipertensi'])->name('hearts360.hipertensi.internal');
+use App\Http\Controllers\DashboardController;
+
+Route::get('/', [DashboardController::class, 'index'])->name('upload.index');
+Route::post('/upload', [DashboardController::class, 'upload'])->name('upload.process');
+
+Route::get('hearts360/hipertensi', [Hearts360Controller::class, 'hipertensi'])->name('hearts360.hipertensi');
 Route::get('hearts360/diabetes', [Hearts360Controller::class, 'diabetes'])->name('hearts360.diabetes');
 
 // AJAX filters

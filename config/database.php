@@ -63,6 +63,20 @@ return [
             ]) : [],
         ],
 
+        'h360' => [
+            'driver' => 'pgsql',
+            'host' => env('H360_DB_HOST', '127.0.0.1'),
+            'port' => env('H360_DB_PORT', '5432'),
+            'database' => env('H360_DB_DATABASE', 'hearts360'),
+            'username' => env('H360_DB_USERNAME', 'h360user'),
+            'password' => env('H360_DB_PASSWORD', 'h360password'),
+            'charset' => 'utf8',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
