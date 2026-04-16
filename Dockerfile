@@ -8,6 +8,7 @@ RUN apk add --no-cache \
     bash \
     openssh-client \
     postgresql-dev \
+    mariadb-connector-c-dev \
     && docker-php-ext-install zip bcmath pdo_mysql pdo_pgsql
 
 # Instal Composer
