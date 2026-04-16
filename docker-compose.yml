@@ -51,6 +51,8 @@ services:
     restart: always
     env_file:
       - .env
+    ports:
+      - "8080:80"
     depends_on:
       - h360-sftp
     networks:

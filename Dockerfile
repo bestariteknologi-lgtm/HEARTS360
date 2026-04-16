@@ -23,8 +23,12 @@ COPY . .
 # Instal dependensi Laravel
 RUN composer install --no-dev --optimize-autoloader
 
-# Set izin folder storage
+# Set izin folder storage dan script
 RUN chmod -R 777 storage bootstrap/cache
+RUN chmod +x start.sh
 
-# Jalankan perintah awal
-CMD ["php", "artisan", "hearts360:sync"]
+# Buka Port 80 untuk Web Uploader
+EXPOSE 80
+
+# Jalankan skrip startup (Migrate + Sync + Web Server)
+CMD ["./start.sh"]
