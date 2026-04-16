@@ -1,7 +1,22 @@
 version: '3.8'
 
 services:
-  # 1. Database HEARTS360
+  # 0. Source Database (MySQL Klikmedis)
+  klikmedis-db:
+    image: mysql:8.0
+    container_name: klikmedis-db
+    restart: always
+    environment:
+      MYSQL_DATABASE: klikmedis
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - klikmedis_db_data:/var/lib/mysql
+    networks:
+      - h360-network
+
+  # 1. Database HEARTS360 (Dashboard)
   h360-db:
     image: postgres:15-alpine
     container_name: h360-db
@@ -59,6 +74,7 @@ services:
 
 volumes:
   h360_db_data:
+  klikmedis_db_data:
 
 networks:
   h360-network:
