@@ -7,7 +7,8 @@ RUN apk add --no-cache \
     zip \
     bash \
     openssh-client \
-    && docker-php-ext-install zip bcmath
+    postgresql-dev \
+    && docker-php-ext-install zip bcmath pdo_mysql pdo_pgsql
 
 # Instal Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
