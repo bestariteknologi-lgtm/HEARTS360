@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  integration-bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kliksimpus-h360-bridge
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - .:/var/www
+      - ./storage/logs:/var/www/storage/logs
+    networks:
+      - h360-network
+
+networks:
+  h360-network:
+    driver: bridge
