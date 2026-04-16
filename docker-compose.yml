@@ -1,6 +1,49 @@
 version: '3.8'
 
 services:
+  # 1. Database HEARTS360
+  h360-db:
+    image: postgres:15-alpine
+    container_name: h360-db
+    restart: always
+    environment:
+      POSTGRES_DB: hearts360
+      POSTGRES_USER: h360user
+      POSTGRES_PASSWORD: h360password
+    volumes:
+      - h360_db_data:/var/lib/postgresql/data
+    networks:
+      - h360-network
+
+  # 2. Dashboard Grafana
+  h360-dashboard:
+    image: grafana/grafana-oss:latest
+    container_name: h360-dashboard
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+    depends_on:
+      - h360-db
+    networks:
+      - h360-network
+
+  # 3. sFTP Server (Target Pengiriman Data)
+  h360-sftp:
+    image: atmoz/sftp
+    container_name: h360-sftp
+    restart: always
+    ports:
+      - "2222:22"
+    volumes:
+      - ./upload:/home/kliksimpus/upload
+    command: kliksimpus:password123:1001
+    networks:
+      - h360-network
+
+  # 4. Integration Bridge (Laravel kita)
   integration-bridge:
     build:
       context: .
@@ -9,11 +52,13 @@ services:
     restart: always
     env_file:
       - .env
-    volumes:
-      - .:/var/www
-      - ./storage/logs:/var/www/storage/logs
+    depends_on:
+      - h360-sftp
     networks:
       - h360-network
+
+volumes:
+  h360_db_data:
 
 networks:
   h360-network:
