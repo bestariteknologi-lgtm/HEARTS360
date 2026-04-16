@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # 0. Source Database (MySQL Klikmedis)
   klikmedis-db:
